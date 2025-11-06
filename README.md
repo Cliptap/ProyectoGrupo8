@@ -12,7 +12,7 @@ Sistema ERP desarrollado para la gestión de operaciones logísticas de LuxChile
 
 ### 1️⃣ Clonar el repositorio
 ```bash
-git clone https://github.com/[tu-usuario]/ERP_LuxChile.git
+git clone https://github.com/Proyectoingsoft1/ERP_LuxChile.git
 cd ERP_LuxChile
 ```
 
@@ -20,9 +20,11 @@ cd ERP_LuxChile
 ```bash
 cd Backend
 npm install
-npx prisma generate
 cp .env.example .env
+npx prisma generate
 npx prisma migrate dev
+npm run seed
+
 npm run dev
 ```
 
@@ -34,6 +36,7 @@ El backend estará corriendo en: `http://localhost:3000`
 ```bash
 cd Frontend/pruebas
 npm install
+
 npm start
 ```
 
