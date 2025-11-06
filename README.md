@@ -21,6 +21,7 @@ cd ERP_LuxChile
 cd Backend
 npm install
 npx prisma generate
+cp .env.example .env
 npx prisma migrate dev
 npm run dev
 ```
