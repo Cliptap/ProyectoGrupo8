@@ -18,8 +18,9 @@ model Usuario {
   updatedAt DateTime @updatedAt
 
   // Relaciones
-  rutasAsignadas Ruta[]
-  incidentes     Incidente[]
+  rutasAsignadas  Ruta[]
+  incidentes      Incidente[]
+  capacitaciones  Capacitacion[] // HU9: Relación con capacitaciones
 }
 
 model Vehiculo {
@@ -119,4 +120,24 @@ model Incidente {
   // Relaciones
   ruta      Ruta    @relation(fields: [rutaId], references: [id])
   reportante Usuario @relation(fields: [reportadoPor], references: [id])
+}
+
+// HU9: Modelo para registro de capacitaciones de empleados
+model Capacitacion {
+  id                    Int       @id @default(autoincrement())
+  usuarioId             Int
+  tema                  String    // Ej: "Seguridad en transporte", "Primeros auxilios"
+  fechaCapacitacion     DateTime
+  categoria             String    @default("general") // 'general', 'seguridad', 'logística', 'atención_cliente', 'operación'
+  institucion           String?   // Ej: "SENCE", "Capacitadora XYZ"
+  certificacion         String    // 'certificado_entregado', 'en_proceso', 'no_aplica'
+  estado                String    @default("completada") // 'completada', 'en_progreso', 'pendiente'
+  duracionHoras         Int?      // Horas de duración
+  calificacion          Float?    // Nota obtenida (0-100)
+  notas                 String?   // Observaciones adicionales
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  // Relaciones
+  usuario   Usuario     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 }

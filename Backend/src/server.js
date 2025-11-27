@@ -11,6 +11,7 @@ import cargasRoutes from './routes/cargas.js';
 import rutasRoutes from './routes/rutas.js';
 import dashboardRoutes from './routes/dashboard.js';
 import usuariosRoutes from './routes/usuarios.js';
+import capacitacionesRoutes from './routes/capacitaciones.js';
 
 // Configurar variables de entorno
 dotenv.config();
@@ -59,6 +60,7 @@ app.use('/api/cargas', cargasRoutes);
 app.use('/api/rutas', rutasRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/capacitaciones', capacitacionesRoutes);
 
 // Ruta de test (sin autenticación)
 app.get('/api/test', (req, res) => {
@@ -215,7 +217,78 @@ async function initializeSeed() {
         },
       });
 
-      console.log('✅ Base de datos inicializada con datos de ejemplo (HU7)');
+      // ============ HU9: CREAR CAPACITACIONES ============
+      const conductor1Obj = usuariosCreados.find(u => u.email === 'conductor1@luxchile.com');
+      const conductor2Obj = usuariosCreados.find(u => u.email === 'conductor2@luxchile.com');
+      const conductor3Obj = usuariosCreados.find(u => u.email === 'conductor3@luxchile.com');
+      const logistica1Obj = usuariosCreados.find(u => u.email === 'juan.perez@luxchile.com');
+
+      await prisma.capacitacion.createMany({
+        data: [
+          {
+            usuarioId: conductor1Obj.id,
+            tema: 'Protocolo de Seguridad en Transporte de Lujo',
+            fechaCapacitacion: new Date('2025-09-15'),
+            categoria: 'seguridad',
+            institucion: 'SENCE',
+            certificacion: 'certificado_entregado',
+            estado: 'completada',
+            duracionHoras: 40,
+            calificacion: 92,
+            notas: 'Excelente desempeño, cumplió con todos los módulos'
+          },
+          {
+            usuarioId: conductor1Obj.id,
+            tema: 'Manejo Defensivo Avanzado',
+            fechaCapacitacion: new Date('2025-11-10'),
+            categoria: 'operación',
+            institucion: 'Instituto de Transporte',
+            certificacion: 'certificado_entregado',
+            estado: 'completada',
+            duracionHoras: 32,
+            calificacion: 88,
+            notas: 'Aprobado con distinción'
+          },
+          {
+            usuarioId: conductor2Obj.id,
+            tema: 'Atención al Cliente Premium',
+            fechaCapacitacion: new Date('2025-10-20'),
+            categoria: 'atención_cliente',
+            institucion: 'Consultoría Empresarial ABC',
+            certificacion: 'certificado_entregado',
+            estado: 'completada',
+            duracionHoras: 24,
+            calificacion: 95,
+            notas: 'Participación activa, excelentes habilidades'
+          },
+          {
+            usuarioId: conductor3Obj.id,
+            tema: 'Introducción a Sistemas de GPS',
+            fechaCapacitacion: new Date('2024-06-15'),
+            categoria: 'operación',
+            institucion: 'Telemática Logística',
+            certificacion: 'certificado_entregado',
+            estado: 'completada',
+            duracionHoras: 16,
+            calificacion: 80,
+            notas: 'Capacitación básica, requiere actualización'
+          },
+          {
+            usuarioId: logistica1Obj.id,
+            tema: 'Gestión de Inventarios Avanzada',
+            fechaCapacitacion: new Date('2025-10-05'),
+            categoria: 'logística',
+            institucion: 'APICS',
+            certificacion: 'certificado_entregado',
+            estado: 'completada',
+            duracionHoras: 48,
+            calificacion: 91,
+            notas: 'Implementó mejoras en proceso de recepción'
+          }
+        ]
+      });
+
+      console.log('✅ Base de datos inicializada con datos de ejemplo (HU7 + HU9)');
     } else {
       console.log('✅ Base de datos ya contiene datos');
     }

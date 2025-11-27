@@ -4,6 +4,7 @@ import TrabajadorCard from './TrabajadorCard';
 import FiltrosTrabajadores from './FiltrosTrabajadores';
 import ModalDetalleTrabajador from './ModalDetalleTrabajador';
 import FormularioTrabajador from './FormularioTrabajador';
+import Capacitaciones from '../Capacitaciones/Capacitaciones'; // ← NUEVO HU9
 import usuariosService from '../../services/usuariosService';
 import { getUsuario } from '../../config/api';
 
@@ -16,6 +17,7 @@ function Trabajadores() {
   const [trabajadorSeleccionado, setTrabajadorSeleccionado] = useState(null);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [trabajadorEditar, setTrabajadorEditar] = useState(null);
+  const [pestaña, setPestaña] = useState('trabajadores'); // ← NUEVO HU9: Controlar pestaña activa
 
   useEffect(() => {
     cargarTrabajadores();
@@ -175,7 +177,7 @@ function Trabajadores() {
         margin: '0 auto',
         padding: '32px 24px',
       }}>
-        {/* Header */}
+        {/* Header con Pestañas HU9 */}
         <div style={{
           marginBottom: '32px',
           display: 'flex',
@@ -189,7 +191,7 @@ function Trabajadores() {
               color: '#2c3e50',
               marginBottom: '8px',
             }}>
-              👥 Gestión de Trabajadores
+              👥 Recursos Humanos
             </h1>
             <p style={{
               fontSize: '16px',
@@ -199,68 +201,121 @@ function Trabajadores() {
             </p>
           </div>
 
+          {pestaña === 'trabajadores' && (
+            <button
+              onClick={() => setMostrarFormulario(true)}
+              style={{
+                padding: '12px 24px',
+                backgroundColor: '#27ae60',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'background-color 0.2s',
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = '#229954'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = '#27ae60'}
+            >
+              ➕ Nuevo Trabajador
+            </button>
+          )}
+        </div>
+
+        {/* Pestañas HU9 */}
+        <div style={{
+          display: 'flex',
+          gap: '10px',
+          marginBottom: '20px',
+          borderBottom: '2px solid #e0e0e0',
+        }}>
           <button
-            onClick={() => setMostrarFormulario(true)}
+            onClick={() => setPestaña('trabajadores')}
             style={{
-              padding: '12px 24px',
-              backgroundColor: '#27ae60',
-              color: 'white',
+              padding: '12px 20px',
               border: 'none',
-              borderRadius: '8px',
+              backgroundColor: pestaña === 'trabajadores' ? '#667eea' : 'transparent',
+              color: pestaña === 'trabajadores' ? 'white' : '#7f8c8d',
+              borderBottom: pestaña === 'trabajadores' ? '3px solid #667eea' : 'none',
+              cursor: 'pointer',
               fontSize: '16px',
               fontWeight: '600',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              transition: 'background-color 0.2s',
+              transition: 'all 0.3s'
             }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#229954'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = '#27ae60'}
           >
-            ➕ Nuevo Trabajador
+            👥 Trabajadores
+          </button>
+          <button
+            onClick={() => setPestaña('capacitaciones')}
+            style={{
+              padding: '12px 20px',
+              border: 'none',
+              backgroundColor: pestaña === 'capacitaciones' ? '#667eea' : 'transparent',
+              color: pestaña === 'capacitaciones' ? 'white' : '#7f8c8d',
+              borderBottom: pestaña === 'capacitaciones' ? '3px solid #667eea' : 'none',
+              cursor: 'pointer',
+              fontSize: '16px',
+              fontWeight: '600',
+              transition: 'all 0.3s'
+            }}
+          >
+            📚 Capacitaciones
           </button>
         </div>
 
-        {/* Filtros */}
-        <FiltrosTrabajadores 
-          onFiltrar={handleFiltrar}
-          totalTrabajadores={trabajadores.length}
-        />
+        {/* Contenido de Pestaña Trabajadores */}
+        {pestaña === 'trabajadores' && (
+          <>
+            {/* Filtros */}
+            <FiltrosTrabajadores 
+              onFiltrar={handleFiltrar}
+              totalTrabajadores={trabajadores.length}
+            />
 
-        {/* Grid de trabajadores */}
-        {trabajadores.length === 0 ? (
-          <div style={{
-            textAlign: 'center',
-            padding: '64px 24px',
-            backgroundColor: '#f8f9fa',
-            borderRadius: '16px',
-          }}>
-            <div style={{ fontSize: '64px', marginBottom: '16px' }}>👥</div>
-            <div style={{ fontSize: '24px', color: '#7f8c8d', marginBottom: '8px' }}>
-              No hay trabajadores registrados
-            </div>
-            <div style={{ fontSize: '16px', color: '#95a5a6' }}>
-              Comienza agregando un nuevo trabajador
-            </div>
-          </div>
-        ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-            gap: '24px',
-          }}>
-            {trabajadores.map((trabajador) => (
-              <TrabajadorCard
-                key={trabajador.id}
-                trabajador={trabajador}
-                onVerDetalle={handleVerDetalle}
-                onEditar={handleEditar}
-                onEliminar={handleEliminar}
-                usuarioActual={usuarioActual}
-              />
-            ))}
-          </div>
+            {/* Grid de trabajadores */}
+            {trabajadores.length === 0 ? (
+              <div style={{
+                textAlign: 'center',
+                padding: '64px 24px',
+                backgroundColor: '#f8f9fa',
+                borderRadius: '16px',
+              }}>
+                <div style={{ fontSize: '64px', marginBottom: '16px' }}>👥</div>
+                <div style={{ fontSize: '24px', color: '#7f8c8d', marginBottom: '8px' }}>
+                  No hay trabajadores registrados
+                </div>
+                <div style={{ fontSize: '16px', color: '#95a5a6' }}>
+                  Comienza agregando un nuevo trabajador
+                </div>
+              </div>
+            ) : (
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+                gap: '24px',
+              }}>
+                {trabajadores.map((trabajador) => (
+                  <TrabajadorCard
+                    key={trabajador.id}
+                    trabajador={trabajador}
+                    onVerDetalle={handleVerDetalle}
+                    onEditar={handleEditar}
+                    onEliminar={handleEliminar}
+                    usuarioActual={usuarioActual}
+                  />
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Contenido de Pestaña Capacitaciones */}
+        {pestaña === 'capacitaciones' && (
+          <Capacitaciones />
         )}
       </div>
 
