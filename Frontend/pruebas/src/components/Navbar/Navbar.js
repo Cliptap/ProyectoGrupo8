@@ -27,6 +27,7 @@ function Navbar() {
     { path: '/Bodegas', label: 'Vehículos', icon: '🚚' },
     { path: '/Cargas', label: 'Cargas', icon: '📦' },
     { path: '/Trabajadores', label: 'Trabajadores', icon: '👥' },
+    { path: '/Reportes', label: 'Reportes', icon: '📋' }, // SCRUM-139
     { path: '/Cuenta', label: 'Mi Cuenta', icon: '⚙️' },
   ];
 

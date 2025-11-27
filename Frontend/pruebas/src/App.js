@@ -6,6 +6,7 @@ import Cuentas from './components/Cuenta/Cuenta';
 import Rutas from './components/Rutas/Rutas';
 import Trabajadores from './components/Trabajadores/Trabajadores';
 import Cargas from './components/Cargas/Cargas';
+import GeneradorReportes from './components/Reportes/GeneradorReportes'; // SCRUM-139
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/Rutas' element={<Rutas />} />
         <Route path='/Trabajadores' element={<Trabajadores />} />
         <Route path="/Cargas" element={<Cargas />} />
+        <Route path="/Reportes" element={<GeneradorReportes />} /> {/* SCRUM-139 */}
       </Routes>
     </Router>
   );

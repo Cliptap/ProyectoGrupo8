@@ -4,6 +4,8 @@ import Navbar from "../Navbar/Navbar";
 import StatCard from "../Dashboard/StatCard";
 import RutasTable from "../Dashboard/RutasTable";
 import FiltrosRutas from "../Dashboard/FiltrosRutas"; // SCRUM-127
+import RutaDetailModal from "../Dashboard/RutaDetailModal"; // SCRUM-135
+import BotonReportes from "../Dashboard/BotonReportes"; // SCRUM-139
 import { getUsuario, isAuthenticated, dashboardService } from '../../services';
 
 function Main() {
@@ -14,6 +16,8 @@ function Main() {
   const [rutasFiltradas, setRutasFiltradas] = useState([]); // SCRUM-127
   const [estadisticas, setEstadisticas] = useState(null);
   const [error, setError] = useState('');
+  const [rutaSeleccionada, setRutaSeleccionada] = useState(null); // SCRUM-135
+  const [modalAbierto, setModalAbierto] = useState(false); // SCRUM-135
   
   // SCRUM-127: Estado de filtros
   const [filtros, setFiltros] = useState({
@@ -102,8 +106,13 @@ function Main() {
   };
 
   const handleVerDetalle = (ruta) => {
-    console.log('Ver detalle de ruta:', ruta);
-    alert(`Detalle de ruta #${ruta.id}\nVehículo: ${ruta.vehiculo.patente}\nDestino: ${ruta.destino}`);
+    setRutaSeleccionada(ruta);
+    setModalAbierto(true);
+  };
+
+  const handleCerrarModal = () => {
+    setModalAbierto(false);
+    setRutaSeleccionada(null);
   };
 
   if (loading) {
@@ -142,6 +151,11 @@ function Main() {
           <p style={{ color: '#7f8c8d', fontSize: '16px', margin: 0 }}>
             Bienvenido al dashboard de {usuario.rol.charAt(0).toUpperCase() + usuario.rol.slice(1)}
           </p>
+        </div>
+
+        {/* Botón de Reportes - SCRUM-139 */}
+        <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+          <BotonReportes />
         </div>
 
         {/* Error */}
@@ -255,6 +269,13 @@ function Main() {
         </div>
 
       </div>
+
+      {/* SCRUM-135: Modal de detalle */}
+      <RutaDetailModal
+        ruta={rutaSeleccionada}
+        isOpen={modalAbierto}
+        onClose={handleCerrarModal}
+      />
     </div>
   );
 }
