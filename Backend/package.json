@@ -1,0 +1,42 @@
+{
+  "name": "erp-luxchile-backend",
+  "version": "1.0.0",
+  "description": "Backend para ERP de Logística - Sistema universitario",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest",
+    "test:linux": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "seed": "node prisma/seed.js"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "keywords": [
+    "express",
+    "prisma",
+    "erp",
+    "logistica"
+  ],
+  "author": "Equipo ERP LuxChile",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.19.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.4",
+    "prisma": "^6.19.0",
+    "supertest": "^7.1.4"
+  }
+}

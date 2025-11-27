@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  nombre    String
+  rol       String   // 'logistica', 'rrhh', 'seguridad', 'conductor'
+  activo    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  rutasAsignadas Ruta[]
+  incidentes     Incidente[]
+}
+
+model Vehiculo {
+  id                Int      @id @default(autoincrement())
+  patente           String   @unique
+  marca             String
+  modelo            String
+  capacidadCarga    Float    // en kilogramos
+  estado            String   @default("disponible") // 'disponible', 'en_ruta', 'mantenimiento'
+  ubicacionActualLat Float?
+  ubicacionActualLng Float?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relaciones
+  rutas    Ruta[]
+  sensores Sensor[]
+  camaras  Camara[]
+}
+
+model Carga {
+  id          Int      @id @default(autoincrement())
+  descripcion String
+  peso        Float    // en kilogramos
+  tipo        String   // 'fragil', 'peligrosa', 'normal', 'refrigerada'
+  prioridad   String   @default("media") // 'baja', 'media', 'alta', 'urgente'
+  estado      String   @default("pendiente") // 'pendiente', 'asignada', 'en_transito', 'entregada'
+  origen      String
+  destino     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relaciones
+  rutas Ruta[]
+}
+
+model Ruta {
+  id              Int       @id @default(autoincrement())
+  vehiculoId      Int
+  cargaId         Int
+  conductorId     Int
+  origen          String
+  destino         String
+  distanciaKm     Float?
+  estadoRuta      String    @default("planificada") // 'planificada', 'en_curso', 'completada', 'cancelada'
+  fechaInicio     DateTime?
+  fechaFin        DateTime?
+  puntosIntermedio String?  // JSON string con coordenadas
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relaciones
+  vehiculo   Vehiculo    @relation(fields: [vehiculoId], references: [id])
+  carga      Carga       @relation(fields: [cargaId], references: [id])
+  conductor  Usuario     @relation(fields: [conductorId], references: [id])
+  incidentes Incidente[]
+}
+
+model Sensor {
+  id          Int      @id @default(autoincrement())
+  vehiculoId  Int
+  tipo        String   // 'temperatura', 'humedad', 'presion', 'vibracion'
+  valor       Float
+  unidad      String   // '°C', '%', 'bar', 'g'
+  estado      String   @default("normal") // 'normal', 'alerta', 'critico'
+  timestamp   DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  // Relaciones
+  vehiculo Vehiculo @relation(fields: [vehiculoId], references: [id])
+}
+
+model Camara {
+  id          Int      @id @default(autoincrement())
+  vehiculoId  Int
+  ubicacion   String   // 'frontal', 'trasera', 'interior', 'lateral'
+  estado      String   @default("activa") // 'activa', 'inactiva', 'error'
+  urlStream   String?  // URL simulada para el stream
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relaciones
+  vehiculo Vehiculo @relation(fields: [vehiculoId], references: [id])
+}
+
+model Incidente {
+  id          Int      @id @default(autoincrement())
+  rutaId      Int
+  reportadoPor Int
+  tipo        String   // 'accidente', 'robo', 'falla_mecanica', 'retraso', 'otro'
+  descripcion String
+  gravedad    String   @default("media") // 'baja', 'media', 'alta', 'critica'
+  resuelto    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relaciones
+  ruta      Ruta    @relation(fields: [rutaId], references: [id])
+  reportante Usuario @relation(fields: [reportadoPor], references: [id])
+}

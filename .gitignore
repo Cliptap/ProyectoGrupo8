@@ -1,0 +1,28 @@
+# Laravel Backend
+/Backend/vendor
+/Backend/node_modules
+/Backend/public/build
+/Backend/public/hot
+/Backend/public/storage
+/Backend/storage/*.key
+Backend/.env
+Backend/.env.backup
+
+# React Frontend
+/Frontend/node_modules
+/Frontend/build
+Frontend/.env.local
+
+# Local
+.env
+
+# Logs
+*.log
+
+# IDEs
+.idea
+.vscode
+.fleet
+
+# OS
+.DS_Store

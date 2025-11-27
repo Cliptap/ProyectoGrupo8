@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Backend Node.js + Prisma + SQLite
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: luxchile_backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: "file:./prisma/dev.db"
+      JWT_SECRET: "luxchile_jwt_secret_2024"
+      CORS_ORIGIN: "http://localhost"
+    ports:
+      - "3000:3000"
+    volumes:
+      # Persistir la base de datos SQLite
+      - ./Backend/prisma/dev.db:/app/prisma/dev.db
+      - sqlite_data:/app/prisma
+    networks:
+      - luxchile_network
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./Frontend/pruebas
+      dockerfile: Dockerfile
+    container_name: luxchile_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+    ports:
+      - "80:3000"
+    networks:
+      - luxchile_network
+
+networks:
+  luxchile_network:
+    driver: bridge
+
+volumes:
+  sqlite_data:
