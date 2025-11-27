@@ -1,4 +1,10 @@
 function FiltrosRutas({ filtros, onCambioFiltro, totalRutas }) {
+  const limpiarFiltros = () => {
+    onCambioFiltro('estado', 'todas');
+    onCambioFiltro('prioridad', 'todas');
+    onCambioFiltro('busqueda', '');
+  };
+
   return (
     <div style={{
       display: 'flex',
@@ -8,10 +14,10 @@ function FiltrosRutas({ filtros, onCambioFiltro, totalRutas }) {
       backgroundColor: '#f8f9fa',
       borderRadius: '12px',
       flexWrap: 'wrap',
-      alignItems: 'center',
+      alignItems: 'flex-start',
     }}>
       {/* Filtro por Estado */}
-      <div style={{ flex: '1 1 200px' }}>
+      <div style={{ flex: '1 1 200px', minWidth: '180px' }}>
         <label style={{ 
           display: 'block', 
           marginBottom: '6px',
@@ -33,6 +39,7 @@ function FiltrosRutas({ filtros, onCambioFiltro, totalRutas }) {
             backgroundColor: 'white',
             cursor: 'pointer',
             transition: 'border-color 0.2s',
+            boxSizing: 'border-box',
           }}
           onFocus={(e) => e.target.style.borderColor = '#667eea'}
           onBlur={(e) => e.target.style.borderColor = '#dee2e6'}
@@ -44,7 +51,7 @@ function FiltrosRutas({ filtros, onCambioFiltro, totalRutas }) {
       </div>
 
       {/* Filtro por Prioridad */}
-      <div style={{ flex: '1 1 200px' }}>
+      <div style={{ flex: '1 1 200px', minWidth: '180px' }}>
         <label style={{ 
           display: 'block', 
           marginBottom: '6px',
@@ -66,6 +73,7 @@ function FiltrosRutas({ filtros, onCambioFiltro, totalRutas }) {
             backgroundColor: 'white',
             cursor: 'pointer',
             transition: 'border-color 0.2s',
+            boxSizing: 'border-box',
           }}
           onFocus={(e) => e.target.style.borderColor = '#667eea'}
           onBlur={(e) => e.target.style.borderColor = '#dee2e6'}
@@ -78,44 +86,48 @@ function FiltrosRutas({ filtros, onCambioFiltro, totalRutas }) {
         </select>
       </div>
 
-      {/* Búsqueda */}
-      <div style={{ flex: '1 1 250px' }}>
-        <label style={{ 
-          display: 'block', 
-          marginBottom: '6px',
-          fontSize: '13px',
-          fontWeight: '600',
-          color: '#555',
-        }}>
-          Buscar
-        </label>
-        <input
-          type="text"
-          placeholder="Vehículo o conductor..."
-          value={filtros.busqueda}
-          onChange={(e) => onCambioFiltro('busqueda', e.target.value)}
-          style={{
-            width: '100%',
-            padding: '10px 12px',
-            border: '2px solid #dee2e6',
-            borderRadius: '8px',
-            fontSize: '14px',
-            backgroundColor: 'white',
-            transition: 'border-color 0.2s',
-          }}
-          onFocus={(e) => e.target.style.borderColor = '#667eea'}
-          onBlur={(e) => e.target.style.borderColor = '#dee2e6'}
-        />
-      </div>
+      {/* Búsqueda + Botón Limpiar (agrupados para evitar solapamiento) */}
+      <div style={{
+        display: 'flex',
+        gap: '12px',
+        flex: '1 1 500px',
+        minWidth: '350px',
+        alignItems: 'flex-end',
+        width: '100%',
+      }}>
+        <div style={{ flex: '1 1 auto', minWidth: '200px' }}>
+          <label style={{ 
+            display: 'block', 
+            marginBottom: '6px',
+            fontSize: '13px',
+            fontWeight: '600',
+            color: '#555',
+          }}>
+            Buscar
+          </label>
+          <input
+            type="text"
+            placeholder="Vehículo o conductor..."
+            value={filtros.busqueda}
+            onChange={(e) => onCambioFiltro('busqueda', e.target.value)}
+            style={{
+              width: '100%',
+              padding: '10px 12px',
+              border: '2px solid #dee2e6',
+              borderRadius: '8px',
+              fontSize: '14px',
+              backgroundColor: 'white',
+              transition: 'border-color 0.2s',
+              boxSizing: 'border-box',
+            }}
+            onFocus={(e) => e.target.style.borderColor = '#667eea'}
+            onBlur={(e) => e.target.style.borderColor = '#dee2e6'}
+          />
+        </div>
 
-      {/* Botón limpiar filtros */}
-      <div style={{ flex: '0 0 auto', alignSelf: 'flex-end' }}>
         <button
-          onClick={() => {
-            onCambioFiltro('estado', 'todas');
-            onCambioFiltro('prioridad', 'todas');
-            onCambioFiltro('busqueda', '');
-          }}
+          onClick={limpiarFiltros}
+          aria-label="Limpiar filtros"
           style={{
             padding: '10px 20px',
             backgroundColor: '#e74c3c',
@@ -125,10 +137,24 @@ function FiltrosRutas({ filtros, onCambioFiltro, totalRutas }) {
             fontSize: '14px',
             fontWeight: '600',
             cursor: 'pointer',
-            transition: 'background-color 0.2s',
+            transition: 'all 0.2s',
+            whiteSpace: 'nowrap',
+            minHeight: '42px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: '0 0 auto',
           }}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#c0392b'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#e74c3c'}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#c0392b';
+            e.target.style.transform = 'scale(1.05)';
+            e.target.style.boxShadow = '0 2px 8px rgba(231, 76, 60, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = '#e74c3c';
+            e.target.style.transform = 'scale(1)';
+            e.target.style.boxShadow = 'none';
+          }}
         >
           Limpiar
         </button>
@@ -146,6 +172,9 @@ function FiltrosRutas({ filtros, onCambioFiltro, totalRutas }) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '10px',
+        boxSizing: 'border-box',
       }}>
         <span>
           <strong>{totalRutas}</strong> {totalRutas === 1 ? 'ruta encontrada' : 'rutas encontradas'}

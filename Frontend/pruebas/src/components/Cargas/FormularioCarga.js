@@ -270,10 +270,10 @@ function FormularioCarga({ onCerrar, onGuardar }) {
                   onFocus={(e) => !errores.tipo && (e.target.style.borderColor = '#667eea')}
                   onBlur={(e) => !errores.tipo && (e.target.style.borderColor = '#dee2e6')}
                 >
-                  <option value="normal">📦 Normal</option>
-                  <option value="fragil">🔴 Frágil</option>
-                  <option value="peligrosa">⚠️ Peligrosa</option>
-                  <option value="refrigerada">❄️ Refrigerada</option>
+                  {/* HU7: Tipos alineados a productos de lujo */}
+                  <option value="normal">👔 Normal (Ropa, accesorios premium)</option>
+                  <option value="fragil">🔴 Frágil (Cristalería, porcelana)</option>
+                  <option value="alto_valor">💎 Alto Valor (Joyas, relojes, electrónica premium)</option>
                 </select>
               </div>
             </div>

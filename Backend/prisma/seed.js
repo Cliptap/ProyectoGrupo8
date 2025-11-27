@@ -92,12 +92,13 @@ async function main() {
   console.log('✅ 3 vehículos creados');
 
   // Crear cargas
+  // HU7: Cargas alineadas a productos de lujo
   const carga1 = await prisma.carga.create({
     data: {
-      descripcion: 'Alimentos refrigerados',
-      peso: 15000,
-      tipo: 'refrigerada',
-      prioridad: 'alta',
+      descripcion: 'Joyas de diseñador',
+      peso: 2500,
+      tipo: 'alto_valor',
+      prioridad: 'urgente',
       estado: 'en_transito',
       origen: 'Santiago Centro',
       destino: 'Valparaíso',
@@ -106,10 +107,10 @@ async function main() {
 
   const carga2 = await prisma.carga.create({
     data: {
-      descripcion: 'Equipos electrónicos',
-      peso: 8000,
+      descripcion: 'Cristalería fina',
+      peso: 1200,
       tipo: 'fragil',
-      prioridad: 'urgente',
+      prioridad: 'alta',
       estado: 'pendiente',
       origen: 'Pudahuel',
       destino: 'Viña del Mar',
@@ -118,8 +119,8 @@ async function main() {
 
   const carga3 = await prisma.carga.create({
     data: {
-      descripcion: 'Material de construcción',
-      peso: 22000,
+      descripcion: 'Ropa premium y accesorios',
+      peso: 5500,
       tipo: 'normal',
       prioridad: 'media',
       estado: 'asignada',
@@ -166,12 +167,92 @@ async function main() {
 
   console.log('✅ 2 rutas creadas');
 
+  // ============ HU9: CREAR CAPACITACIONES DE EJEMPLO ============
+  const conductor1Obj = usuariosCreados.find(u => u.email === 'conductor1@luxchile.com');
+  const conductor2Obj = usuariosCreados.find(u => u.email === 'conductor2@luxchile.com');
+  const conductor3Obj = usuariosCreados.find(u => u.email === 'conductor3@luxchile.com');
+  const logistica1Obj = usuariosCreados.find(u => u.email === 'juan.perez@luxchile.com');
+
+  await prisma.capacitacion.deleteMany(); // Limpiar primero
+
+  await prisma.capacitacion.createMany({
+    data: [
+      // Capacitaciones para Roberto Sánchez
+      {
+        usuarioId: conductor1Obj.id,
+        tema: 'Protocolo de Seguridad en Transporte de Lujo',
+        fechaCapacitacion: new Date('2025-09-15'),
+        categoria: 'seguridad',
+        institucion: 'SENCE',
+        certificacion: 'certificado_entregado',
+        estado: 'completada',
+        duracionHoras: 40,
+        calificacion: 92,
+        notas: 'Excelente desempeño, cumplió con todos los módulos'
+      },
+      {
+        usuarioId: conductor1Obj.id,
+        tema: 'Manejo Defensivo Avanzado',
+        fechaCapacitacion: new Date('2025-11-10'),
+        categoria: 'operación',
+        institucion: 'Instituto de Transporte',
+        certificacion: 'certificado_entregado',
+        estado: 'completada',
+        duracionHoras: 32,
+        calificacion: 88,
+        notas: 'Aprobado con distinción en evaluación teórica y práctica'
+      },
+      // Capacitaciones para Patricia Muñoz
+      {
+        usuarioId: conductor2Obj.id,
+        tema: 'Atención al Cliente Premium',
+        fechaCapacitacion: new Date('2025-10-20'),
+        categoria: 'atención_cliente',
+        institucion: 'Consultoría Empresarial ABC',
+        certificacion: 'certificado_entregado',
+        estado: 'completada',
+        duracionHoras: 24,
+        calificacion: 95,
+        notas: 'Participación activa, excelentes habilidades comunicacionales'
+      },
+      // Capacitaciones para Luis Torres (sin capacitaciones recientes - para filtro)
+      {
+        usuarioId: conductor3Obj.id,
+        tema: 'Introducción a Sistemas de GPS',
+        fechaCapacitacion: new Date('2024-06-15'),
+        categoria: 'operación',
+        institucion: 'Telemática Logística',
+        certificacion: 'certificado_entregado',
+        estado: 'completada',
+        duracionHoras: 16,
+        calificacion: 80,
+        notas: 'Capacitación básica, requiere actualización'
+      },
+      // Capacitaciones para Juan Pérez (Logística)
+      {
+        usuarioId: logistica1Obj.id,
+        tema: 'Gestión de Inventarios Avanzada',
+        fechaCapacitacion: new Date('2025-10-05'),
+        categoria: 'logística',
+        institucion: 'APICS',
+        certificacion: 'certificado_entregado',
+        estado: 'completada',
+        duracionHoras: 48,
+        calificacion: 91,
+        notas: 'Implementó mejoras en proceso de recepción post-capacitación'
+      }
+    ]
+  });
+
+  console.log('✅ 5 capacitaciones creadas (HU9)');
+
   console.log('\n🎉 ¡Seed completado exitosamente!');
   console.log('\n📊 Resumen:');
   console.log('   - 12 usuarios (3 logística, 2 RRHH, 2 seguridad, 5 conductores)');
   console.log('   - 3 vehículos');
   console.log('   - 3 cargas');
   console.log('   - 2 rutas');
+  console.log('   - 5 capacitaciones (HU9)');
   console.log('\n👤 Credenciales de prueba:');
   console.log('   Email: juan.perez@luxchile.com');
   console.log('   Password: password123\n');
