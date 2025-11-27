@@ -92,12 +92,13 @@ async function main() {
   console.log('✅ 3 vehículos creados');
 
   // Crear cargas
+  // HU7: Cargas alineadas a productos de lujo
   const carga1 = await prisma.carga.create({
     data: {
-      descripcion: 'Alimentos refrigerados',
-      peso: 15000,
-      tipo: 'refrigerada',
-      prioridad: 'alta',
+      descripcion: 'Joyas de diseñador',
+      peso: 2500,
+      tipo: 'alto_valor',
+      prioridad: 'urgente',
       estado: 'en_transito',
       origen: 'Santiago Centro',
       destino: 'Valparaíso',
@@ -106,10 +107,10 @@ async function main() {
 
   const carga2 = await prisma.carga.create({
     data: {
-      descripcion: 'Equipos electrónicos',
-      peso: 8000,
+      descripcion: 'Cristalería fina',
+      peso: 1200,
       tipo: 'fragil',
-      prioridad: 'urgente',
+      prioridad: 'alta',
       estado: 'pendiente',
       origen: 'Pudahuel',
       destino: 'Viña del Mar',
@@ -118,8 +119,8 @@ async function main() {
 
   const carga3 = await prisma.carga.create({
     data: {
-      descripcion: 'Material de construcción',
-      peso: 22000,
+      descripcion: 'Ropa premium y accesorios',
+      peso: 5500,
       tipo: 'normal',
       prioridad: 'media',
       estado: 'asignada',

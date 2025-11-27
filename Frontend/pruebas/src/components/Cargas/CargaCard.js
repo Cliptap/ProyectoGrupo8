@@ -21,11 +21,11 @@ function CargaCard({ carga }) {
   };
 
   const getTipoColor = (tipo) => {
+    // HU7: Tipos alineados a productos de lujo
     const colores = {
-      fragil: { bg: '#f8d7da', color: '#721c24', icon: '🔴' },
-      peligrosa: { bg: '#fff3cd', color: '#856404', icon: '⚠️' },
-      normal: { bg: '#d1ecf1', color: '#0c5460', icon: '📦' },
-      refrigerada: { bg: '#d4edda', color: '#155724', icon: '❄️' },
+      normal: { bg: '#d1ecf1', color: '#0c5460', icon: '👔' },        // Ropa/accesorios premium
+      fragil: { bg: '#f8d7da', color: '#721c24', icon: '🔴' },        // Cristalería, porcelana
+      alto_valor: { bg: '#fff3cd', color: '#856404', icon: '💎' },   // Joyas, relojes, electrónica premium
     };
     return colores[tipo] || colores.normal;
   };

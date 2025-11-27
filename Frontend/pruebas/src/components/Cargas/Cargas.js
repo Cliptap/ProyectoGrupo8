@@ -39,17 +39,6 @@ function Cargas() {
     }
   };
 
-  // Paginación: Calcular índices para mostrar cargas
-  const totalPaginas = Math.ceil(cargas.length / CARGAS_POR_PAGINA);
-  const indiceInicio = (paginaActual - 1) * CARGAS_POR_PAGINA;
-  const indiceFin = indiceInicio + CARGAS_POR_PAGINA;
-  const cargasPaginadas = cargas.slice(indiceInicio, indiceFin);
-
-  // Reset a página 1 si se modifica la lista
-  useEffect(() => {
-    setPaginaActual(1);
-  }, [cargas.length]);
-
   if (loading) {
     return (
       <div>

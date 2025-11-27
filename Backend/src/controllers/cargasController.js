@@ -65,7 +65,8 @@ export const crearCarga = async (req, res) => {
       return res.status(400).json({ error: 'Campos requeridos: descripcion, peso, tipo, origen, destino' });
     }
 
-    const tiposValidos = ['fragil', 'peligrosa', 'normal', 'refrigerada'];
+    // HU7: Tipos alineados a productos de lujo
+    const tiposValidos = ['normal', 'fragil', 'alto_valor'];
     if (!tiposValidos.includes(tipo)) {
       return res.status(400).json({ error: `Tipo debe ser: ${tiposValidos.join(', ')}` });
     }

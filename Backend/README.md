@@ -1,8 +1,8 @@
-# íºš Backend ERP LuxChile
+# ï¿½ï¿½ï¿½ Backend ERP LuxChile
 
 API REST para sistema de gestiÃ³n logÃ­stica - Proyecto universitario IngenierÃ­a de Software I
 
-## í» ï¸ Stack TecnolÃ³gico
+## ï¿½ï¿½ï¿½ï¸ Stack TecnolÃ³gico
 
 - **Node.js** + **Express** - Servidor y rutas
 - **Prisma** - ORM y migraciones
@@ -10,7 +10,7 @@ API REST para sistema de gestiÃ³n logÃ­stica - Proyecto universitario IngenierÃ­
 - **JWT** - AutenticaciÃ³n
 - **bcryptjs** - EncriptaciÃ³n de contraseÃ±as
 
-## í³¦ InstalaciÃ³n RÃ¡pida
+## ï¿½ï¿½ï¿½ InstalaciÃ³n RÃ¡pida
 
 ```bash
 # 1. Clonar el repositorio
@@ -29,24 +29,25 @@ npx prisma generate
 # 5. Crear base de datos y tablas
 npx prisma migrate dev --name init
 
-# 6. Poblar con datos de ejemplo
-npm run seed
-
-# 7. Iniciar servidor
+# 6. Iniciar servidor (seed se ejecutarÃ¡ automÃ¡ticamente)
 npm run dev
+# O para producciÃ³n:
+npm start
 ```
 
-## íº€ Comandos Disponibles
+**âœ¨ NOTA HU7:** El seed se ejecuta automÃ¡ticamente al iniciar el servidor, poblando la BD con datos de ejemplo de productos de lujo (joyas, cristalerÃ­a, ropa premium). No es necesario ejecutar `npm run seed` manualmente (aunque sigue disponible para reiniciar los datos).
+
+## ğŸ“š Comandos Disponibles
 
 ```bash
-npm run dev          # Inicia servidor con nodemon (auto-reload)
-npm start            # Inicia servidor en producciÃ³n
-npm run seed         # Puebla la base de datos con datos de ejemplo
+npm run dev          # Inicia servidor con nodemon (auto-reload) - Ejecuta seed automÃ¡ticamente
+npm start            # Inicia servidor en producciÃ³n - Ejecuta seed automÃ¡ticamente
+npm run seed         # Puebla la base de datos con datos de ejemplo (solo si es necesario)
 npx prisma studio    # Abre interfaz visual de la base de datos
 npx prisma migrate dev  # Crea nueva migraciÃ³n
 ```
 
-## í³¡ Endpoints de la API
+## ï¿½ï¿½ï¿½ Endpoints de la API
 
 ### AutenticaciÃ³n (`/api/auth`)
 
@@ -135,7 +136,7 @@ Authorization: Bearer {token}
 }
 ```
 
-## í´ AutenticaciÃ³n
+## ï¿½ï¿½ï¿½ AutenticaciÃ³n
 
 Todas las rutas (excepto `/api/auth/login` y `/api/auth/registro`) requieren un token JWT en el header:
 
@@ -143,7 +144,7 @@ Todas las rutas (excepto `/api/auth/login` y `/api/auth/registro`) requieren un 
 Authorization: Bearer {tu_token_aqui}
 ```
 
-## í±¥ Usuarios de Prueba
+## ï¿½ï¿½ï¿½ Usuarios de Prueba
 
 DespuÃ©s de ejecutar `npm run seed`, puedes usar:
 
@@ -157,7 +158,7 @@ DespuÃ©s de ejecutar `npm run seed`, puedes usar:
 | diego.morales@luxchile.com | password123 | Seguridad |
 | laura.fernandez@luxchile.com | password123 | Seguridad |
 
-## í³Š Estructura de la Base de Datos
+## ï¿½ï¿½ï¿½ Estructura de la Base de Datos
 
 ### Modelos principales:
 
@@ -169,7 +170,7 @@ DespuÃ©s de ejecutar `npm run seed`, puedes usar:
 - **Camara** - CÃ¡maras de seguridad en vehÃ­culos
 - **Incidente** - Reportes de problemas en rutas
 
-## í·‚ï¸ Estructura del Proyecto
+## ï¿½ï¿½ï¿½ï¸ Estructura del Proyecto
 
 ```
 Backend/
@@ -197,7 +198,7 @@ Backend/
 â””â”€â”€ README.md
 ```
 
-## í´„ Flujo de Trabajo Git
+## ï¿½ï¿½ï¿½ Flujo de Trabajo Git
 
 ```bash
 # 1. Actualizar cÃ³digo
@@ -216,7 +217,7 @@ git push origin SCRUM-XX-descripcion
 # 5. Crear Pull Request en GitHub
 ```
 
-## í·ª Probar la API
+## ï¿½ï¿½ï¿½ Probar la API
 
 ### OpciÃ³n 1: Con cURL
 
@@ -246,7 +247,7 @@ npx prisma studio
 
 Abre http://localhost:5555 para ver y editar datos visualmente.
 
-## íº¨ SoluciÃ³n de Problemas
+## ï¿½ï¿½ï¿½ SoluciÃ³n de Problemas
 
 ### Error: "Cannot find module"
 ```bash
@@ -276,7 +277,7 @@ PORT=3001
 tail -f logs/app.log
 ```
 
-## í³ Variables de Entorno
+## ï¿½ï¿½ï¿½ Variables de Entorno
 
 Crea un archivo `.env` basado en `.env.example`:
 
@@ -304,7 +305,7 @@ nano .env
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
-## í¼ Deploy (ProducciÃ³n)
+## ï¿½ï¿½ï¿½ Deploy (ProducciÃ³n)
 
 Para desplegar en Render/Railway:
 
@@ -313,25 +314,25 @@ Para desplegar en Render/Railway:
 3. Configurar variables de entorno en el servicio
 4. El `package.json` ya tiene los scripts necesarios
 
-## í±¨â€í²» Equipo
+## ï¿½ï¿½ï¿½â€ï¿½ï¿½ï¿½ Equipo
 
 - **Backend:** Vicente
 - **Frontend:** [CompaÃ±ero]
 - **Proyecto:** IngenierÃ­a de Software I
 
-## í³š Recursos
+## ï¿½ï¿½ï¿½ Recursos
 
 - [DocumentaciÃ³n de Prisma](https://www.prisma.io/docs)
 - [Express.js Guide](https://expressjs.com/)
 - [JWT.io](https://jwt.io/)
 
-## í³„ Licencia
+## ï¿½ï¿½ï¿½ Licencia
 
-Proyecto universitario - MIT License# íºš Backend ERP LuxChile
+Proyecto universitario - MIT License# ï¿½ï¿½ï¿½ Backend ERP LuxChile
 
 API REST para sistema de gestiÃ³n logÃ­stica - Proyecto universitario IngenierÃ­a de Software I
 
-## í» ï¸ Stack TecnolÃ³gico
+## ï¿½ï¿½ï¿½ï¸ Stack TecnolÃ³gico
 
 - **Node.js** + **Express** - Servidor y rutas
 - **Prisma** - ORM y migraciones
@@ -339,7 +340,7 @@ API REST para sistema de gestiÃ³n logÃ­stica - Proyecto universitario IngenierÃ­
 - **JWT** - AutenticaciÃ³n
 - **bcryptjs** - EncriptaciÃ³n de contraseÃ±as
 
-## í³¦ InstalaciÃ³n RÃ¡pida
+## ï¿½ï¿½ï¿½ InstalaciÃ³n RÃ¡pida
 
 ```bash
 # 1. Clonar el repositorio
@@ -365,7 +366,7 @@ npm run seed
 npm run dev
 ```
 
-## íº€ Comandos Disponibles
+## ï¿½ï¿½ï¿½ Comandos Disponibles
 
 ```bash
 npm run dev          # Inicia servidor con nodemon (auto-reload)
@@ -375,7 +376,7 @@ npx prisma studio    # Abre interfaz visual de la base de datos
 npx prisma migrate dev  # Crea nueva migraciÃ³n
 ```
 
-## í³¡ Endpoints de la API
+## ï¿½ï¿½ï¿½ Endpoints de la API
 
 ### AutenticaciÃ³n (`/api/auth`)
 
@@ -464,7 +465,7 @@ Authorization: Bearer {token}
 }
 ```
 
-## í´ AutenticaciÃ³n
+## ï¿½ï¿½ï¿½ AutenticaciÃ³n
 
 Todas las rutas (excepto `/api/auth/login` y `/api/auth/registro`) requieren un token JWT en el header:
 
@@ -472,7 +473,7 @@ Todas las rutas (excepto `/api/auth/login` y `/api/auth/registro`) requieren un 
 Authorization: Bearer {tu_token_aqui}
 ```
 
-## í±¥ Usuarios de Prueba
+## ï¿½ï¿½ï¿½ Usuarios de Prueba
 
 DespuÃ©s de ejecutar `npm run seed`, puedes usar:
 
@@ -486,7 +487,7 @@ DespuÃ©s de ejecutar `npm run seed`, puedes usar:
 | diego.morales@luxchile.com | password123 | Seguridad |
 | laura.fernandez@luxchile.com | password123 | Seguridad |
 
-## í³Š Estructura de la Base de Datos
+## ï¿½ï¿½ï¿½ Estructura de la Base de Datos
 
 ### Modelos principales:
 
@@ -498,7 +499,7 @@ DespuÃ©s de ejecutar `npm run seed`, puedes usar:
 - **Camara** - CÃ¡maras de seguridad en vehÃ­culos
 - **Incidente** - Reportes de problemas en rutas
 
-## í·‚ï¸ Estructura del Proyecto
+## ï¿½ï¿½ï¿½ï¸ Estructura del Proyecto
 
 ```
 Backend/
@@ -526,7 +527,7 @@ Backend/
 â””â”€â”€ README.md
 ```
 
-## í´„ Flujo de Trabajo Git
+## ï¿½ï¿½ï¿½ Flujo de Trabajo Git
 
 ```bash
 # 1. Actualizar cÃ³digo
@@ -545,7 +546,7 @@ git push origin SCRUM-XX-descripcion
 # 5. Crear Pull Request en GitHub
 ```
 
-## í·ª Probar la API
+## ï¿½ï¿½ï¿½ Probar la API
 
 ### OpciÃ³n 1: Con cURL
 
@@ -575,7 +576,7 @@ npx prisma studio
 
 Abre http://localhost:5555 para ver y editar datos visualmente.
 
-## íº¨ SoluciÃ³n de Problemas
+## ï¿½ï¿½ï¿½ SoluciÃ³n de Problemas
 
 ### Error: "Cannot find module"
 ```bash
@@ -605,7 +606,7 @@ PORT=3001
 tail -f logs/app.log
 ```
 
-## í³ Variables de Entorno
+## ï¿½ï¿½ï¿½ Variables de Entorno
 
 Crea un archivo `.env` basado en `.env.example`:
 
@@ -633,7 +634,7 @@ nano .env
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
-## í¼ Deploy (ProducciÃ³n)
+## ï¿½ï¿½ï¿½ Deploy (ProducciÃ³n)
 
 Para desplegar en Render/Railway:
 
@@ -642,18 +643,18 @@ Para desplegar en Render/Railway:
 3. Configurar variables de entorno en el servicio
 4. El `package.json` ya tiene los scripts necesarios
 
-## í±¨â€í²» Equipo
+## ï¿½ï¿½ï¿½â€ï¿½ï¿½ï¿½ Equipo
 
 - **Backend:** Vicente
 - **Frontend:** [CompaÃ±ero]
 - **Proyecto:** IngenierÃ­a de Software I
 
-## í³š Recursos
+## ï¿½ï¿½ï¿½ Recursos
 
 - [DocumentaciÃ³n de Prisma](https://www.prisma.io/docs)
 - [Express.js Guide](https://expressjs.com/)
 - [JWT.io](https://jwt.io/)
 
-## í³„ Licencia
+## ï¿½ï¿½ï¿½ Licencia
 
 Proyecto universitario - MIT License
