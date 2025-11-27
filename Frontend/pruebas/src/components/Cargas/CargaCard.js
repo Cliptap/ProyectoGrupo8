@@ -1,4 +1,15 @@
 function CargaCard({ carga }) {
+  // HU8: Función para determinar si la carga está asignada
+  const isAsignada = () => {
+    if (!carga.rutas || carga.rutas.length === 0) {
+      return false;
+    }
+    // Retorna true si hay al menos una ruta en estado planificada o en_curso
+    return carga.rutas.some(ruta => 
+      ruta.estadoRuta === 'planificada' || ruta.estadoRuta === 'en_curso'
+    );
+  };
+
   const getEstadoColor = (estado) => {
     const colores = {
       pendiente: { bg: '#fff3cd', color: '#856404', icon: '🟡' },
@@ -164,16 +175,43 @@ function CargaCard({ carga }) {
           </div>
         </div>
 
-        {carga.rutas && carga.rutas.length > 0 && (
-          <div>
-            <div style={{ fontSize: '11px', color: '#7f8c8d', marginBottom: '4px' }}>
-              Rutas asignadas
-            </div>
-            <div style={{ fontSize: '16px', fontWeight: '700', color: '#667eea' }}>
-              🗺️ {carga.rutas.length}
-            </div>
+        {/* HU8: Indicador de asignación de ruta */}
+        <div>
+          <div style={{ fontSize: '11px', color: '#7f8c8d', marginBottom: '4px' }}>
+            Estado de Asignación
           </div>
-        )}
+          {isAsignada() ? (
+            // Carga asignada (tiene ruta en estado planificada o en_curso)
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#d4edda',
+              color: '#155724',
+              padding: '6px 12px',
+              borderRadius: '12px',
+              fontSize: '13px',
+              fontWeight: '600',
+            }}>
+              ✅ Asignada
+            </div>
+          ) : (
+            // Carga no asignada (sin ruta activa)
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#f8d7da',
+              color: '#721c24',
+              padding: '6px 12px',
+              borderRadius: '12px',
+              fontSize: '13px',
+              fontWeight: '600',
+            }}>
+              ❌ No asignada
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Origen y Destino */}
