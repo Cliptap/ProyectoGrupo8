@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger.config.js';
 
 // Importar rutas
 import authRoutes from './routes/auth.js';
@@ -38,18 +40,30 @@ app.use((req, res, next) => {
   next();
 });
 
+// HU1: Swagger UI para documentación de API
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayOperationId: false,
+  },
+}));
+
 // Ruta de bienvenida
 app.get('/', (req, res) => {
   res.json({
     message: '🚚 API ERP LuxChile - Sistema de Logística',
     version: '1.0.0',
+    documentation: {
+      swagger: '/api-docs',
+      description: 'Accede a /api-docs para ver la documentación completa de la API en Swagger UI',
+    },
     endpoints: {
       auth: '/api/auth',
       vehiculos: '/api/vehiculos',
       cargas: '/api/cargas',
       rutas: '/api/rutas',
     },
-    docs: 'Consulta el README.md para más información',
   });
 });
 

@@ -1,6 +1,34 @@
 # ��� Backend ERP LuxChile
 
-API REST para sistema de gestión logística - Proyecto universitario Ingeniería de Software I
+API REST parnpm run dev          # Inicia servidor con nodemon (auto-reload) - Ejecuta seed automáticamente
+npm start            # Inicia servidor en producción - Ejecuta seed automáticamente
+npm run seed         # Puebla la base de datos con datos de ejemplo (solo si es necesario)
+npx prisma studio    # Abre interfaz visual de la base de datos
+npx prisma migrate dev  # Crea nueva migración
+```
+
+## HU1 - Documentación API en Swagger
+
+La API está completamente documentada en **Swagger/OpenAPI** con especificación interactiva.
+
+### Acceder a Swagger UI
+
+Una vez que el servidor esté corriendo:
+
+```
+http://localhost:3000/api-docs
+```
+
+Swagger UI permite:
+- Ver todos los endpoints documentados
+- Probar los endpoints directamente desde el navegador
+- Ver ejemplos de request/response
+- Autenticarse con tokens JWT
+- Consultar esquemas de datos
+
+**Documentación automática desde**: `src/swagger.config.js` y comentarios JSDoc en rutas
+
+## Endpoints de la APIa de gestión logística - Proyecto universitario Ingeniería de Software I
 
 ## ���️ Stack Tecnológico
 
