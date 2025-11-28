@@ -225,10 +225,10 @@ export const actualizarRuta = async (req, res) => {
           data: { estado: 'disponible' },
         });
       } else if (estadoRuta === 'cancelada') {
-        // Ruta cancelada: carga vuelve a asignada, vehículo disponible
+        // Ruta cancelada: carga vuelve a pendiente (no asignada), vehículo disponible
         await tx.carga.update({
           where: { id: rutaActualizada.cargaId },
-          data: { estado: 'asignada' },
+          data: { estado: 'pendiente' },
         });
         
         await tx.vehiculo.update({
