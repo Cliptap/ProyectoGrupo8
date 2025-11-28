@@ -60,12 +60,21 @@ function Rutas() {
   };
 
   // SCRUM-95: Inicializar Google Maps con debug
+  // HU4: Validar que API key está disponible
   const inicializarMapa = () => {
     console.log('🗺️ Intentando inicializar mapa...', {
       googleExists: !!window.google,
       mapExists: !!map,
-      refExists: !!mapRef.current
+      refExists: !!mapRef.current,
+      apiKeyConfigured: !!window.__REACT_APP_GOOGLE_MAPS_API_KEY__
     });
+
+    // HU4: Validar API key
+    if (!window.__REACT_APP_GOOGLE_MAPS_API_KEY__) {
+      console.error('⚠️ HU4: API key de Google Maps no está disponible. Configura REACT_APP_GOOGLE_MAPS_API_KEY en .env.local');
+      setError('⚠️ API key de Google Maps no configurada');
+      return;
+    }
 
     if (!window.google) {
       console.log('⏳ Google Maps aún no está cargado, reintentando en 100ms...');

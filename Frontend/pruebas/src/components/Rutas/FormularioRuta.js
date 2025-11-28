@@ -46,7 +46,14 @@ function FormularioRuta({ isOpen, onClose, onRutaCreada }) {
   const autocompleteDestinoRef = useRef(null);
 
   // HU3: Verificar si Google Maps está cargado (viene de index.html)
+  // HU4: La API key se obtiene desde variable de entorno (REACT_APP_GOOGLE_MAPS_API_KEY)
   useEffect(() => {
+    // Validar que la API key está disponible
+    if (!window.__REACT_APP_GOOGLE_MAPS_API_KEY__) {
+      setError('⚠️ HU4: API key de Google Maps no configurada. Configura REACT_APP_GOOGLE_MAPS_API_KEY en .env.local');
+      console.error('HU4: API key no disponible en window.__REACT_APP_GOOGLE_MAPS_API_KEY__');
+    }
+
     if (window.google && window.google.maps && window.google.maps.places) {
       setMapsLoaded(true);
     } else {

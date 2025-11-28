@@ -10,11 +10,24 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDweMw_Hma8bz1QW75dvgWX6aCOYIA_TpA&libraries=places"
-      async
-      defer
-    ></script>
+    <!-- Google Maps API Script - Cargar dinámicamente desde variable de entorno -->
+    <script>
+      (function() {
+        const apiKey = window.__REACT_APP_GOOGLE_MAPS_API_KEY__;
+        if (!apiKey) {
+          console.error('⚠️ HU4: API key de Google Maps no configurada. Configura REACT_APP_GOOGLE_MAPS_API_KEY en .env.local');
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+        script.async = true;
+        script.defer = true;
+        script.onerror = function() {
+          console.error('❌ Error cargando Google Maps API. Verifica tu API key.');
+        };
+        document.head.appendChild(script);
+      })();
+    </script>
 
     <!--
       manifest.json provides metadata used when your web app is installed on a
